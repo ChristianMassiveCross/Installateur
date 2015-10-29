@@ -17,6 +17,9 @@
 - name: set branch name to matching
   command: git config --global push.default matching
 
+- name: set editor to vi
+  command: git config --global core.editor vi
+
 # create ssh key
 - stat: path=~/.ssh/ansible_generated
   register: sshkey
