@@ -1,0 +1,5 @@
+- name: install frescobaldi (create music sheets)
+  sudo: yes
+  apt:
+    name=frescobaldi
+    force=yes
