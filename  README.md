@@ -1,0 +1,1 @@
+ansible-playbook -i inventory.ini letsGoBaby.yml --ask-sudo-pass --ask-vault-pass

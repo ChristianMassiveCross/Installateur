@@ -1,0 +1,20 @@
+- name: install gimp
+  sudo: yes
+  apt:
+    name=gimp
+    force=yes
+- name: install inkscape
+  sudo: yes
+  apt:
+    name=inkscape
+    force=yes
+- name: install darktable
+  sudo: yes
+  apt:
+    name=darktable
+    force=yes
+- name: install cinelerra - video edit
+  sudo: yes
+  apt:
+    name=cinelerra-cv
+    force=yes

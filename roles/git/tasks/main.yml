@@ -1,0 +1,42 @@
+- include_vars: secureVars.yml
+
+- name: install git apt package
+  sudo: yes
+  apt:
+    name=git
+    force=yes
+
+- name: setup git user
+  command: git config --global user.name "{{commiterName}}"
+  when: not "git config --global user.name"
+
+- name: setup git mail
+  command: git config --global user.email "{{commiterMail}}"
+  when: not "git config --global user.email"
+
+- name: set branch name to matching
+  command: git config --global push.default matching
+
+# create ssh key
+- stat: path=~/.ssh/ansible_generated
+  register: sshkey
+
+- name: Creating pub SSH keys if not exists
+  command: "ssh-keygen -N '' -f ~/.ssh/ansible_generated"
+  when: not sshkey.stat.exists
+
+- name: copy public key
+  command: "cat ~/.ssh/ansible_generated.pub"
+  register: publickey
+
+- name: add public key to github acount
+  uri:
+    url: https://api.github.com/user/keys
+    method: POST
+    user: "{{gitHubUserName}}"
+    password: "{{GitHubPassword}}"
+    body: "{\"title\":\"{{publicKeyNameOnGitHub}}\",\"key\":\"{{publickey.stdout }}\", \"_hack\": null}" #_hack it is because of a bug in the uri package
+    force_basic_auth: yes
+    status_code: 201
+    body_format: json
+  ignore_errors: True
