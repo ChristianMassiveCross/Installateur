@@ -1,6 +1,6 @@
 gitHubUserName: ChristianMassiveCross
 commiterMail: chrisbea@gmx.net
 commiterName: Christian Breitkreutz
-
+gitHubPassword: "{{vault_git_GitHubPassword}}"
 #todo use computer name
 publicKeyNameOnGitHub: "ansible_generated_key_{{ansible_hostname}}"

@@ -1,0 +1,5 @@
+- name: install thunderbird
+  sudo: yes
+  apt:
+    name=thunderbird
+    force=yes

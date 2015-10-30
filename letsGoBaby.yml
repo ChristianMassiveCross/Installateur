@@ -3,6 +3,7 @@
 
   roles:
     - common
+    - communications
     - git
     - grafics
     - music
