@@ -1,0 +1,4 @@
+---
+jabberName: acosta@jabber.ccc.de
+jabberPassword: "{{vault_communications_jabberPassword}}"
+jabberAlias: ich

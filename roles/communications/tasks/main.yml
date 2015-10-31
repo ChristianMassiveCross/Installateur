@@ -3,3 +3,16 @@
   apt:
     name=thunderbird
     force=yes
+
+- name: install pidgin
+  sudo: yes
+  apt:
+    name=pidgin
+    force=yes
+
+- name: create pidgin folder
+  file: path=~/.purple state=directory
+
+- name: setup pidgin accounts
+  template: src=accounts.xml.j2 dest=~/.purple/accounts.xml
+
