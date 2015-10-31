@@ -5,33 +5,48 @@
     name=git
     force=yes
 
+
+- name: install vim
+  sudo: yes
+  apt:
+    name=vim
+    force=yes
+
 # setup git
+- name: load all current settings
+  shell: git config --global --list
+  register: allCurrentSettings
+  changed_when: false
+
 - name: setup git user
-  command: git config --global user.name "{{commiterName}}"
-  when: not "git config --global user.name"
+  command: git config --global user.name "{{commiterName}}" #"
+  changed_when: not allCurrentSettings.stdout | search("user.name={{commiterName}}") #"
 
 - name: setup git mail
-  command: git config --global user.email "{{commiterMail}}"
-  when: not "git config --global user.email"
+  command: git config --global user.email "{{commiterMail}}" #"
+  changed_when: not allCurrentSettings.stdout | search("user.email={{commiterMail}}") #"
 
-- name: set branch name to matching
+- name: set push default to matching
   command: git config --global push.default matching
-  when: not "git config --global push.default"
+  changed_when: not allCurrentSettings.stdout | search("push.default=matching") #"
 
-- name: set editor to vi
-  command: git config --global core.editor vi
+- name: set editor to vim
+  command: git config --global core.editor vim
+  changed_when: not allCurrentSettings.stdout | search("core.editor=vim") #"
 
 # connect git to github
 - stat: path=~/.ssh/ansible_generated
   register: sshkey
+  changed_when: false
 
-- name: Creating pub SSH keys if not exists
+- name: Creating pub SSH keys - skip if it's already exist
   command: "ssh-keygen -N '' -f ~/.ssh/ansible_generated"
   when: not sshkey.stat.exists
 
 - name: copy public key
   command: "cat ~/.ssh/ansible_generated.pub"
   register: publickey
+  changed_when: false
 
 - name: add public key to github acount
   uri:
@@ -39,8 +54,7 @@
     method: POST
     user: "{{gitHubUserName}}"
     password: "{{gitHubPassword}}"
-    body: "{\"title\":\"{{publicKeyNameOnGitHub}}\",\"key\":\"{{publickey.stdout }}\", \"_hack\": null}" #_hack it is because of a bug in the uri package
+    body: "{\"title\":\"{{publicKeyNameOnGitHub}}\",\"key\":\"{{publickey.stdout}}\", \"_hack\": null}" #_hack it is because of a bug in the uri package
     force_basic_auth: yes
-    status_code: 201
     body_format: json
-  ignore_errors: True
+    status_code: 201, 422 #201 - set key, 422 - key is already in use

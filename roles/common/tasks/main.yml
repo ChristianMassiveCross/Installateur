@@ -3,3 +3,9 @@
   apt:
     name=curl
     force=yes
+
+- name: install whois
+  sudo: yes
+  apt:
+    name=whois
+    force=yes
