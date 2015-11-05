@@ -9,3 +9,9 @@
   apt:
     name=whois
     force=yes
+
+- name: install wget
+  sudo: yes
+  apt:
+    name=wget
+    force=yes

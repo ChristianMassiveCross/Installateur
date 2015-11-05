@@ -1,5 +1,0 @@
-gitHubUserName: ChristianMassiveCross
-commiterMail: chrisbea@gmx.net
-commiterName: Christian Breitkreutz
-gitHubPassword: "{{vault_git_GitHubPassword}}"
-publicKeyNameOnGitHub: "ansible_generated_key_{{ansible_hostname}}"

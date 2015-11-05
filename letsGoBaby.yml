@@ -7,4 +7,33 @@
     - git
     - grafics
     - music
+    - bashrc
 
+  vars_prompt:
+    - name: "git_gitHubUserName"
+      prompt: "GitHub username"
+      default: "ChristianMassiveCross"
+      private: no
+
+    - name: "git_commiterName"
+      prompt: "GitHub commiterName"
+      default: "Christian Breitkreutz"
+      private: no
+
+    - name: "git_commiterMail"
+      prompt: "GitHub commiterMail"
+      default: "chrisbea@gmx.net"
+      private: no
+
+    - name: "git_gitHubPassword"
+      prompt: "GitHub password"
+      private: no
+
+    - name: "communications_jabberName"
+      prompt: "jabber user"
+      default: "acosta@jabber.ccc.de"
+      private: no
+
+    - name: "communications_jabberPassword"
+      prompt: "jabber password"
+      private: no
