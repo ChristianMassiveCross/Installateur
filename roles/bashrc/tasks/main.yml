@@ -4,5 +4,5 @@
   changed_when: false
 
 - name: set export path for Sublime
-  shell: "echo 'export PATH=$PATH:/home/christian/Sublime\ Text\ 2' >> ~/.bashrc"
+  shell: "echo 'export PATH=$PATH:\"/home/christian/Sublime\ Text\ 2\"' >> ~/.bashrc"
   when: not bashrcContent.stdout | search("export PATH=\$PATH:/home/christian/Sublime Text 2") #"
